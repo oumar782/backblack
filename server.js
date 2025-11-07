@@ -63,7 +63,7 @@ app.use("/api/event", Event); // ✅ SUPPRIMÉ l'espace après "defis"
 app.use("/api/fracture",Fracture); // ✅ SUPPRIMÉ l'espace après "defis"
 
 app.get("/", (req, res) => {
-  res.send("✅ Backend Mekody opérationnel (CORS activé)");
+  res.send("✅ Backend Blackbook opérationnel (CORS activé)");
 });
 
 // Pour le développement local
