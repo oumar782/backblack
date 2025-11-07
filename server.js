@@ -19,7 +19,7 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5174",
   "http://localhost:5173",
-  "https://dashboard-mekody.netlify.app",
+  "https://black-book.netlify.app",
   "https://www.mekody.com",
   "https://bacmeyody.vercel.app",
 ];
