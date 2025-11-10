@@ -64,4 +64,49 @@ router.post("/", async (req, res) => {
     }
 });
 
+// 🗑️ Supprimer un article
+router.delete("/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        const result = await pool.query(
+            "DELETE FROM blog_posts WHERE id = $1 RETURNING *",
+            [id]
+        );
+        
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Article non trouvé" });
+        }
+        
+        res.json({ message: "Article supprimé avec succès", deletedPost: result.rows[0] });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// ✏️ Mettre à jour un article
+router.put("/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, content, excerpt, category, author_name, read_time, is_published } = req.body;
+        
+        const result = await pool.query(
+            `UPDATE blog_posts 
+             SET title = $1, content = $2, excerpt = $3, category = $4, 
+                 author_name = $5, read_time = $6, is_published = $7,
+                 updated_at = CURRENT_TIMESTAMP 
+             WHERE id = $8 
+             RETURNING *`,
+            [title, content, excerpt, category, author_name, read_time, is_published, id]
+        );
+        
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Article non trouvé" });
+        }
+        
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 export default router;
