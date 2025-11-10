@@ -84,7 +84,7 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-// ✏️ Mettre à jour un article
+// ✏️ Mettre à jour un article (CORRIGÉ - sans updated_at)
 router.put("/:id", async (req, res) => {
     try {
         const { id } = req.params;
@@ -93,8 +93,7 @@ router.put("/:id", async (req, res) => {
         const result = await pool.query(
             `UPDATE blog_posts 
              SET title = $1, content = $2, excerpt = $3, category = $4, 
-                 author_name = $5, read_time = $6, is_published = $7,
-                 updated_at = CURRENT_TIMESTAMP 
+                 author_name = $5, read_time = $6, is_published = $7
              WHERE id = $8 
              RETURNING *`,
             [title, content, excerpt, category, author_name, read_time, is_published, id]
@@ -109,4 +108,5 @@ router.put("/:id", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 export default router;
