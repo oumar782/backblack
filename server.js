@@ -20,7 +20,7 @@ const allowedOrigins = [
   "http://localhost:5174",
   "http://localhost:5173",
   "https://black-book.netlify.app",
-  "https://www.mekody.com",
+  "https://dashblacks.netlify.app",
   "https://bacmeyody.vercel.app",
 ];
 
